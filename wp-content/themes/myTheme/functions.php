@@ -25,3 +25,23 @@ add_action( 'wp_enqueue_scripts', 'wpdocs_zicro_scripts' );
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
 */
+
+// Register a new navigation menu
+function add_Main_Nav(){
+	register_nav_menu('header-menu', __('Header Menu'));
+}
+// Hook to the init action hook, run our navigation menu function
+add_action('init', 'add_Main_Nav');
+
+
+// register the shortCode
+// lms_featured_product : the name of the shortCode
+// generate_shortcode : the name of the function
+add_shortcode('lms_featured_product', 'generate_shortcode');
+
+// generate_vc : the name of the function to be executed in the action (vc_before_init)
+//add_action('vc_before_init', 'generate_vc');
+
+function generate_shortcode(){
+    return 'PN';
+}
