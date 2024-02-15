@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri().'/assets/img/apple-icon.png' ?>">
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo get_template_directory_uri().'/assets/img/favicon.ico' ?>">
+    <link rel="apple-touch-icon" href="<?php echo IMG.'apple-icon.png' ?>">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo IMG.'favicon.ico' ?>">
 
     <?php wp_head(); ?>
 </head>
