@@ -5,15 +5,17 @@
 // generate_shortcode : the name of the function
 add_shortcode('lms_featured_product', 'generate_shortcode');
 
-function generate_shortcode($atts){
+function generate_shortcode($atts, $content){
 
 	extract(shortcode_atts(
 					array(
 						'title' => 'title',
-						'description' => 'description',
+						'content' => $content,
 						'image' => '',
 						'rating' => '',
 						'color_star' => '',
+						'price' => '',
+						'link' => '',
 					), $atts));
 
 	$img_link = wp_get_attachment_image_src($image);
@@ -23,12 +25,12 @@ function generate_shortcode($atts){
         $stars_to_show .= '<i class="text-warning fa fa-star" style="color: '.$color_star.' !important;"></i>';
     }
 
-
-	printr($rating);
+	$p_link = vc_build_link($link);
+	printr($p_link);
 
     return '
 	<div class="card h-100">
-	<a href="shop-single.html">
+	<a href="'.$p_link['url'].'" target="'.$p_link['target'].'" title="'.$p_link['title'].'">
 		<img src="'. $img_link[0] .'" class="card-img-top" alt="...">
 	</a>
 	<div class="card-body">
@@ -36,11 +38,12 @@ function generate_shortcode($atts){
 			<li>
 				'.$stars_to_show.'
 			</li>
-			<li class="text-muted text-right">$240.00</li>
+			<li class="text-muted text-right">$'.$price.'</li>
 		</ul>
-		<a href="shop-single.html" class="h2 text-decoration-none text-dark">'.$title.'</a>
+		<a href="'.$p_link['url'].'" target="'.$p_link['target'].'" 
+		class="h2 text-decoration-none text-dark">'.$title.'</a>
 		<p class="card-text">
-			'.$description.'
+			'.$content.'
         </p>
 		</p>
 		<p class="text-muted">Reviews (24)</p>
@@ -71,11 +74,11 @@ function generate_vc(){
 				"description" => "the title of the product"
 			),
 			array(
-				"type" => "textarea",
+				"type" => "textarea_html",
 				"holder" => "div",
 				"class" => "",
 				"heading" =>"Description",
-				"param_name" => "description",
+				"param_name" => "content",
 				"value" => "",
 				"description" => "the Description of the product"
 			),
@@ -116,6 +119,24 @@ function generate_vc(){
                     'element' => 'rating',
                     'not_empty' => true
                 )
+			),
+			array(
+				"type" => "textfield",
+				"holder" => "div",
+				"class" => "",
+				"heading" =>"Price",
+				"param_name" => "price",
+				"value" => "",
+				"description" => "the price of the product",
+			),
+			array(
+				"type" => "vc_link",
+				"holder" => "div",
+				"class" => "",
+				"heading" =>"Product Link",
+				"param_name" => "link",
+				"value" => "",
+				"description" => "the Link of the product",
 			),
 			)
 	   	)
